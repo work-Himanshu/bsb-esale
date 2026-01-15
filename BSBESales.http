@@ -1,0 +1,6 @@
+@BSBESales_HostAddress = http://localhost:5193
+
+GET {{BSBESales_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
