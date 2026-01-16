@@ -1,6 +1,6 @@
 ﻿namespace BSBESales.DTOs.Search;
 
-public class SearchStandardRequestDto
+public class AutoSearchRequestDto
 {
     public string? Keyword { get; set; }
 

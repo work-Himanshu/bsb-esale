@@ -14,8 +14,8 @@ public class AutoSearchServices : IAutoSearchServices
         _context = context;
     }
 
-    public async Task<PagedResponseDto<SearchStandardResponseDto>> SearchAsync(
-        SearchStandardRequestDto request)
+    public async Task<PagedResponseDto<AutoSearchResponseDto>> SearchAsync(
+        AutoSearchRequestDto request)
     {
         // 1. Normalize keyword
         var keyword = request.Keyword?.Trim().ToLower();
@@ -87,7 +87,7 @@ public class AutoSearchServices : IAutoSearchServices
         var data = rankedResults
             .Skip((request.Page - 1) * request.PageSize)
             .Take(request.PageSize)
-            .Select(x => new SearchStandardResponseDto
+            .Select(x => new AutoSearchResponseDto
             {
                 Id = x.Entity.Id,
                 StandardNo = x.Entity.StandardNo,
@@ -98,7 +98,7 @@ public class AutoSearchServices : IAutoSearchServices
             .ToList();
 
         // 10. Response
-        return new PagedResponseDto<SearchStandardResponseDto>
+        return new PagedResponseDto<AutoSearchResponseDto>
         {
             Page = request.Page,
             PageSize = request.PageSize,
@@ -107,15 +107,15 @@ public class AutoSearchServices : IAutoSearchServices
         };
     }
 
-    private static PagedResponseDto<SearchStandardResponseDto> EmptyResponse(
-        SearchStandardRequestDto request)
+    private static PagedResponseDto<AutoSearchResponseDto> EmptyResponse(
+        AutoSearchRequestDto request)
     {
-        return new PagedResponseDto<SearchStandardResponseDto>
+        return new PagedResponseDto<AutoSearchResponseDto>
         {
             Page = request.Page,
             PageSize = request.PageSize,
             TotalRecords = 0,
-            Data = new List<SearchStandardResponseDto>()
+            Data = new List<AutoSearchResponseDto>()
         };
     }
 }
