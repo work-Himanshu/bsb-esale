@@ -1,5 +1,5 @@
 ﻿using BSBESales.DTOs.Search;
-using BSBESales.Services.StandardSearch;
+using BSBESales.Services.AutoSearchService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BSBESales.Controllers;
@@ -8,9 +8,9 @@ namespace BSBESales.Controllers;
 [Route("api/search/standards")]
 public class SearchStandardController : ControllerBase
 {
-    private readonly IStandardSearchService _service;
+    private readonly IAutoSearchServices _service;
 
-    public SearchStandardController(IStandardSearchService service)
+    public SearchStandardController(IAutoSearchServices service)
     {
         _service = service;
     }
