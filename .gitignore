@@ -1,0 +1,35 @@
+################################
+# Build output (auto-generated)
+################################
+bin/
+obj/
+
+################################
+# IDE / user-specific files
+################################
+.vs/
+.idea/
+*.suo
+*.user
+*.DotSettings.user
+
+################################
+# ASP.NET Core configuration (SECRETS)
+################################
+appsettings.json
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+################################
+# Logs
+################################
+logs/
+*.log
+
+################################
+# OS-generated files
+################################
+Thumbs.db
+.DS_Store
+Desktop.ini
