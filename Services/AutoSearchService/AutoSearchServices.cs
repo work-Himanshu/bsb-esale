@@ -3,13 +3,13 @@ using BSBESales.DTOs.Search;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
-namespace BSBESales.Services.StandardSearch;
+namespace BSBESales.Services.AutoSearchService;
 
-public class StandardSearchService : IStandardSearchService
+public class AutoSearchServices : IAutoSearchServices
 {
     private readonly AppDbContext _context;
 
-    public StandardSearchService(AppDbContext context)
+    public AutoSearchServices(AppDbContext context)
     {
         _context = context;
     }

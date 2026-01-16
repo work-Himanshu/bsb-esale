@@ -1,8 +1,8 @@
 ﻿using BSBESales.DTOs.Search;
 
-namespace BSBESales.Services.StandardSearch;
+namespace BSBESales.Services.AutoSearchService;
 
-public interface IStandardSearchService
+public interface IAutoSearchServices
 {
     Task<PagedResponseDto<SearchStandardResponseDto>> SearchAsync(
         SearchStandardRequestDto request);

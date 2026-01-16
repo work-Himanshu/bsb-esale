@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using BSBESales.Data;
 using BSBESales.Middlewares;
+using BSBESales.Services.AutoSearchService;
 using BSBESales.Services.SdoService;
 using BSBESales.Services.StandardsServices;
-using BSBESales.Services.StandardSearch;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Esales");
@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped<ISdoService, SdoService>();
 builder.Services.AddScoped<IStandardServices,StandardServices>();
-builder.Services.AddScoped<IStandardSearchService, StandardSearchService>();
+builder.Services.AddScoped<IAutoSearchServices, AutoSearchServices>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
