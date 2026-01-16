@@ -4,6 +4,6 @@ namespace BSBESales.Services.AutoSearchService;
 
 public interface IAutoSearchServices
 {
-    Task<PagedResponseDto<SearchStandardResponseDto>> SearchAsync(
-        SearchStandardRequestDto request);
+    Task<PagedResponseDto<AutoSearchResponseDto>> SearchAsync(
+        AutoSearchRequestDto request);
 }

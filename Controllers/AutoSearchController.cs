@@ -16,7 +16,7 @@ public class AutoSearchController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Search([FromQuery] SearchStandardRequestDto request)
+    public async Task<IActionResult> Search([FromQuery] AutoSearchRequestDto request)
     {
         var result = await _service.SearchAsync(request);
         return Ok(result);

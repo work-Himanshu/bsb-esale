@@ -4,6 +4,7 @@ using BSBESales.Data;
 using BSBESales.Middlewares;
 using BSBESales.Services.AutoSearchService;
 using BSBESales.Services.SdoService;
+using BSBESales.Services.StandardSearchService;
 using BSBESales.Services.StandardsServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ISdoService, SdoService>();
 builder.Services.AddScoped<IStandardServices,StandardServices>();
 builder.Services.AddScoped<IAutoSearchServices, AutoSearchServices>();
+builder.Services.AddScoped<IStandardSearchService, StandardSearchService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

@@ -1,6 +1,6 @@
 ﻿namespace BSBESales.DTOs.Search;
 
-public class SearchStandardResponseDto
+public class AutoSearchResponseDto
 {
     public int Id { get; set; }
     public string? StandardNo { get; set; }
