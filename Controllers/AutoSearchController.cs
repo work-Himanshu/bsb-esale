@@ -6,11 +6,11 @@ namespace BSBESales.Controllers;
 
 [ApiController]
 [Route("api/search/standards")]
-public class SearchStandardController : ControllerBase
+public class AutoSearchController : ControllerBase
 {
     private readonly IAutoSearchServices _service;
 
-    public SearchStandardController(IAutoSearchServices service)
+    public AutoSearchController(IAutoSearchServices service)
     {
         _service = service;
     }
