@@ -1,5 +1,6 @@
 ﻿using BSBESales.Data;
 using BSBESales.DTOs.Search;
+using BSBESales.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
@@ -55,19 +56,56 @@ public class AutoSearchServices : IAutoSearchServices
         // 6. Count AFTER filtering, BEFORE paging
         var totalRecords = await query.CountAsync();
 
-        // 7. Fetch filtered results into memory
-        var allResults = await query
-            .Select(s => new
-            {
-                s.Id,
-                s.StandardNo,
-                s.Title,
-                s.StdKeyword,
-                s.SdoId
-            })
-            .ToListAsync();
+        // 7. Conditional left join with StdPrice if PriceOption == 1
+        IQueryable<AutoSearchResponseDto> finalQuery;
+        
+        if (request.PriceOption == 1)
+        {
+            finalQuery = query
+                .GroupJoin(
+                    _context.Set<StdPrice>().Where(p => p.Status == true),
+                    std => std.Id,
+                    price => price.StdId,
+                    (std, prices) => new { std, prices }
+                )
+                .SelectMany(
+                    x => x.prices.OrderBy(p => p.Id).Take(2).DefaultIfEmpty(),
+                    (x, price) => new AutoSearchResponseDto
+                    {
+                        Id = x.std.Id,
+                        StandardNo = x.std.StandardNo,
+                        Title = x.std.Title,
+                        Description = x.std.StdKeyword,
+                        SdoId = x.std.SdoId,
+                        StandardId = x.std.StandardId,
+                        MemberPriceRate = price != null ? price.MemberPriceRate : null,
+                        NonMemberPriceRate = price != null ? price.NonMemberPriceRate : null,
+                        formatID = price != null? price.FormateId : null
+                    }
+                );
+        }
+        else
+        {
+            finalQuery = query
+                .Select(s => new AutoSearchResponseDto
+                {
+                    Id = s.Id,
+                    StandardNo = s.StandardNo,
+                    Title = s.Title,
+                    Description = s.StdKeyword,
+                    SdoId = s.SdoId,
+                    StandardId = s.StandardId,
+                    MemberPriceRate = null,
+                    NonMemberPriceRate = null,
+                    formatID = null
+                });
+        }
 
-        // 8. Apply relevance ranking in memory (avoid SQL collation issues)
+
+        // 8. Fetch all results
+        var allResults = await finalQuery.ToListAsync();
+
+        // 9. Apply relevance ranking in memory
         var rankedResults = allResults
             .Select(s => new
             {
@@ -83,21 +121,14 @@ public class AutoSearchServices : IAutoSearchServices
             .OrderBy(x => x.Priority)
             .ThenBy(x => x.Entity.StandardNo);
 
-        // 9. Apply paging and map to DTO
+        // 10. Apply paging
         var data = rankedResults
             .Skip((request.Page - 1) * request.PageSize)
             .Take(request.PageSize)
-            .Select(x => new AutoSearchResponseDto
-            {
-                Id = x.Entity.Id,
-                StandardNo = x.Entity.StandardNo,
-                Title = x.Entity.Title,
-                Description = x.Entity.StdKeyword,
-                SdoId = x.Entity.SdoId
-            })
+            .Select(x => x.Entity)
             .ToList();
 
-        // 10. Response
+        // 11. Response
         return new PagedResponseDto<AutoSearchResponseDto>
         {
             Page = request.Page,
