@@ -4,5 +4,5 @@ namespace BSBESales.Services.StandardsServices;
 
 public interface IStandardServices
 {
-    Task<List<response_StandardDTOs>> GetStandardList(string StandardId);
+    Task<List<response_StandardDTOs>> GetStandardList(int Id);
 }

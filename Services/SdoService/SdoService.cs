@@ -17,7 +17,8 @@ public class SdoService : ISdoService
     public async Task<List<sdosResponse>> GetSdoList()
     {
         return await _context.sdos
-            .Where(s => s.BSBESales) 
+            .Where(s => s.BSBESales)
+            .OrderBy(s => s.Id)
             .Select(s => new sdosResponse
             {
                 Id = s.Id,
