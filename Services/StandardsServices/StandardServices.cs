@@ -13,10 +13,10 @@ public class StandardServices : IStandardServices
         _context=context;
     }
 
-    public async Task<List<response_StandardDTOs>> GetStandardList(string StandardId)
+    public async Task<List<response_StandardDTOs>> GetStandardList(int Id)
     {
         return await _context.Standards
-            .Where(s => s.StandardId == StandardId)
+            .Where(s => s.Id == Id)
             .Select(s => new response_StandardDTOs()
             {
                 StandardId = s.StandardId,
@@ -36,5 +36,6 @@ public class StandardServices : IStandardServices
                 BSBInternal = s.BSBInternal,
                 BSBSubscription = s.BSBSubscription,
             }).ToListAsync();
+        
     }
 }

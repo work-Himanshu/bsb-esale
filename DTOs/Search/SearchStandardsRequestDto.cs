@@ -1,7 +1,11 @@
-﻿namespace BSBESales.DTOs.Search;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BSBESales.DTOs.Search;
 
 public class SearchStandardsRequestDto
 {
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    [Required] public string sdoID { get; set; }
+    public int? Year { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
 }
