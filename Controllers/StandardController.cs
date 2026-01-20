@@ -13,13 +13,13 @@ public class StandardController: ControllerBase
         _standardService = standardService;
     }
     
-    [HttpGet("StandardId")]
-    public async Task<IActionResult> GetByDisplayStdNo(
-        [FromQuery] string StandardId)
+    [HttpGet("Id")]
+    public async Task<IActionResult> GetById(
+        [FromQuery] string Id)
     {
-        if (string.IsNullOrWhiteSpace(StandardId))
+        if (string.IsNullOrWhiteSpace(Id))
             throw new ArgumentException("StandardId is required");
 
-        return Ok(await _standardService.GetStandardList(StandardId));
+        return Ok(await _standardService.GetStandardList(int.Parse(Id)));
     }
 }

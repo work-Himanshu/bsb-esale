@@ -19,7 +19,7 @@ public class SearchStandardsResponseDto
 
     public int StatusId { get; set; }
 
-    public int ParentId { get; set; }
+    public int ParentId { get; set; }   
 
     public string? Image { get; set; }
 

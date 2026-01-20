@@ -12,4 +12,6 @@ public class AppDbContext : DbContext
     public DbSet<Sdo> sdos { get; set; }
     public DbSet<Standards> Standards { get; set; }
     public DbSet<SearchStandard> SearchStandards { get; set; }
+    public DbSet<StdPrice> StdPrices { get; set; }
+    public DbSet <StandardDetails> StandardDetails { get; set; }
 }
